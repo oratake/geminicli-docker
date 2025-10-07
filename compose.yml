@@ -3,6 +3,8 @@ services:
     build: .
     container_name: node-gemini
     tty: true
+    environment:
+      - COLORTERM=truecolor
     volumes:
     - ./:/repo-root
     - ./work:/work
