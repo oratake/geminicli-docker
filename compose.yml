@@ -1,13 +1,13 @@
 services:
   nodegemini:
-    image: node:lts
+    build: .
     container_name: node-gemini
     tty: true
     volumes:
     - ./:/repo-root
     - ./work:/work
+    - ~/repos:/repos
     - ./update-notifier-@google:/root/.config/configstore/update-notifier-@google
     - ./.gemini:/root/.gemini
-    command: >
-      sh -c "npm install -g @google/gemini-cli --force-immutable --no-update-notifier && bash"
+    command: bash
     working_dir: /work
