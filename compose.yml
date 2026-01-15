@@ -2,14 +2,39 @@ services:
   nodegemini:
     build: .
     container_name: node-gemini
+    # tty trueでコンテナが起動し続けるように
     tty: true
     environment:
       - COLORTERM=truecolor
     volumes:
-    - ./:/repo-root
-    - ./work:/work
-    - ~/repos:/repos
+    # - ./:/repo-root
     - ./update-notifier-@google:/root/.config/configstore/update-notifier-@google
     - ./.gemini:/root/.gemini
-    command: bash
-    working_dir: /work
+    # GeminiCLIを使いたいディレクトリをMOUNT_DIRに指定
+    - "${MOUNT_DIR:-./}:/mnt"
+    # tty: trueが有効になるようcommandに適当なものを指定
+    command: "tail -f /dev/null"
+    working_dir: /mnt
+    depends_on:
+      - serena
+    networks:
+      - gemini-network
+
+  serena:
+    container_name: python-gemini
+    image: ghcr.io/oraios/serena:latest
+    tty: true
+    ports:
+      - "${SERENA_PORT:-9121}:9121"  # MCP server port
+      - "${SERENA_DASHBOARD_PORT:-24282}:24282"  # Dashboard port (default 0x5EDA = 24282)
+    environment:
+      - SERENA_DOCKER=1
+    volumes:
+      - .:/work
+    command:
+      - "uv run --directory . serena-mcp-server --transport sse --port 9121 --host 0.0.0.0"
+    networks:
+      - gemini-network
+
+networks:
+  gemini-network:

@@ -1,7 +1,35 @@
 {
+  "mcpServers": {
+    "mcpGateway": {
+      "type": "sse",
+      "url": "http://serena:9121/sse"
+    }
+  },
+  "model": {
+    // "name": "gemini-2.5-flash"
+  },
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
+    }
+  },
+  "general": {
+    "previewFeatures": true,
+    "vimMode": true
+  },
+  "output": {
+    "format": "text"
+  },
+  "ui": {
+    "footer": {
+      "hideContextPercentage": false
+    },
+    "showMemoryUsage": true,
+    "showModelInfoInChat": true
+  },
+  "tools": {
+    "shell": {
+      "showColor": false
     }
   }
 }
