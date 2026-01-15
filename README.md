@@ -32,13 +32,15 @@ SerenaはLSPを活用してLLMにコードベースを理解させる手段。
 
 ### Serenaの使い方
 
-開始時に以下プロンプト
-`@serena.activate_project`
+開始時に以下でオンボーディング
+`index-project`
 
-コードの変化が出てきたらメタデータ再生成
-`@serena.onboarding`
+オンボーディングがなされているかチェック
+`check_onboarding_performed`
 
 ### Serenaのダッシュボード
 http://localhost:24282/dashboard/index.html
 ※ポート番号は各設定による
 
+### 参考情報
+[Serena MCPの全ツール解説とおすすめpermissions設定 - Zenn](https://zenn.dev/oukoda/articles/7403a8ad93005e)
