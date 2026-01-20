@@ -30,9 +30,9 @@ services:
     environment:
       - SERENA_DOCKER=1
     volumes:
-      - .:/work
+      - "${MOUNT_DIR:-./}:/mnt"
     command:
-      - "uv run --directory . serena-mcp-server --transport sse --port 9121 --host 0.0.0.0"
+      - "uv run --directory /mnt serena-mcp-server --transport sse --port 9121 --host 0.0.0.0"
     networks:
       - gemini-network
 
